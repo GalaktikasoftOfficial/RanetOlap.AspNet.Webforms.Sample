@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+        
+        function getReport() {
+            var ranetReportObj = document.getElementById('ranetFrame').contentWindow.getCurrentReportObj();
+            var str = JSON.stringify(ranetReportObj);
+            console.log(ranetReportObj);
+            
+        }
+
+        function loadReport() {
+            var jsonReport = "{\"id\":\"e17b2473-6be6-419e-ac6e-c16bdae0374f\",\"content\":{\"pages\":[{\"id\":\"50ab7c52-8c9d-406d-b19c-6cec4a991d37\",\"cubeName\":\"[Adventure Works]\",\"caption\":\"Page 1\",\"queryDesignerSetting\":{\"hideEmptyColumns\":true,\"hideEmptyRows\":true,\"subsetCount\":0,\"useVisualTotals\":true,\"generateCustomCalculated\":false,\"includeAllMembers\":false,\"includeCustomCalculationsInDrillDown\":false},\"layout\":{\"filters\":[],\"rows\":[{\"uniqueName\":\"[Date].[Calendar]\",\"defaultMember\":\"[Date].[Calendar].[All Periods]\",\"HierarchyType\":\"user\",\"type\":\"hierarchy\",\"filter\":null,\"icon\":\"userHierarchy\",\"caption\":\"Date.Calendar\"}],\"columns\":[{\"uniqueName\":\"[Product].[Product Categories]\",\"defaultMember\":\"[Product].[Product Categories].[All Products]\",\"HierarchyType\":\"user\",\"type\":\"hierarchy\",\"filter\":null,\"icon\":\"userHierarchy\",\"caption\":\"Product Categories\"}],\"data\":[]},\"calculatedNamedSets\":[],\"calculatedMembers\":[],\"loadStateFromHistory\":true,\"placementLayoutModeDataViewer\":0,\"placementLayoutModeQueryDesigner\":0,\"isVisibleActiveFilters\":false,\"customCellsConditions\":[],\"selectedMeasureGroupName\":null,\"isVisibleExtensionPanel\":false,\"headerText\":\"\",\"footerText\":\"\",\"showMetadataAndQueryDesigner\":true,\"extensionSettings\":{\"chartOptions\":{\"dataSource\":[],\"seriesOptions\":[],\"legend\":{\"visible\":true,\"position\":0},\"tooltip\":{\"enabled\":true},\"styling\":{\"paddingLeft\":10,\"paddingRight\":0,\"paddingTop\":10,\"paddingBottom\":25},\"showArgumentLabels\":true,\"autogenerate\":true,\"defaultDiagramType\":2,\"extensionType\":0,\"pie\":{\"header\":{\"title\":{\"text\":\"\",\"fontSize\":24,\"font\":\"open sans\"}},\"size\":{\"canvasHeight\":400,\"canvasWidth\":400,\"pieInnerRadius\":\"0%\",\"pieOuterRadius\":\"70%\"},\"data\":{\"content\":[]},\"labels\":{\"outer\":{\"format\":\"label\",\"pieDistance\":15,\"color\":\"#000000\"},\"inner\":{\"format\":\"none\",\"hideWhenLessThanPercentage\":3},\"mainLabel\":{\"color\":\"#fff\",\"fontSize\":11},\"percentage\":{\"color\":\"#fff\",\"fontSize\":9,\"decimalPlaces\":0},\"value\":{\"color\":\"#fff\",\"fontSize\":11},\"lines\":{\"enabled\":true},\"truncation\":{\"enabled\":true,\"truncateLength\":27}},\"tooltips\":{\"enabled\":true},\"effects\":{\"load\":{\"effect\":\"none\"},\"pullOutSegmentOnClick\":{\"effect\":\"linear\",\"speed\":400,\"size\":8}},\"legend\":{\"visible\":true},\"callbacks\":{},\"minHeight\":200}},\"extensionType\":0,\"vectorMapSettings\":{\"dataSettings\":{\"col\":0},\"mapOptions\":{\"data\":{},\"groups\":[],\"showCountryLabels\":false,\"minScale\":100,\"maxScale\":3200,\"paletteId\":0,\"tooltip\":{\"enabled\":true},\"legend\":{\"visible\":true},\"presetDetailedRegion\":\"\",\"detailedMapSettings\":{\"enable\":false,\"showRegionNames\":true,\"tooltip\":{\"enabled\":true}},\"bounds\":{}}}},\"$$hashKey\":\"object:44\",\"actions\":[{\"actionType\":\"drilldown\",\"header\":{\"uniqueName\":\"[Product].[Product Categories].[All Products]\",\"hierarchyUniqueName\":\"[Product].[Product Categories]\",\"axisType\":\"columns\",\"ancestors\":[]}},{\"actionType\":\"drilldown\",\"header\":{\"uniqueName\":\"[Date].[Calendar].[All Periods]\",\"hierarchyUniqueName\":\"[Date].[Calendar]\",\"axisType\":\"rows\",\"ancestors\":[]}}]}]},\"caption\":\"Report\"}";
+            var ranetReportObj = JSON.parse(jsonReport);
+
+            document.getElementById('ranetFrame').contentWindow.loadReportObj(ranetReportObj);
+        }
+
+        function checkLoaded() {
+            console.log(document.getElementById('ranetFrame').contentWindow.isInit());
+        }
+
+    </script>
+</head>
+<body>
+<iframe style="width: 100%; height: 500px;" 
+        id="ranetFrame"  
+        src="index.debug.html?ranetreportid=2f22998e-9aa7-46b1-a8ab-75b794261765&ranetispublic=true&contextMenuId=333333"></iframe>
+    
+<button onclick="getReport()">Get report</button>
+<button onclick="loadReport()">Load some report</button>
+
+</body>
+</html>

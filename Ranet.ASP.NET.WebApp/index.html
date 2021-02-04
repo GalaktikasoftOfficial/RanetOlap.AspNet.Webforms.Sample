@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="sampleDynamicPivotGrid">
+<head>
+    <title>Ranet Pivot Table</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+    <meta charset="utf-8">
+    <!--Vendors-->
+    <script src="Assets/vendors/jquery/jquery.min.js"></script>
+
+    <script src="Assets/vendors/jqueryUI/jquery-ui.js"></script>
+    <link href="Assets/vendors/jqueryUI/jquery-ui.min.css" rel="stylesheet" />
+    <script src="Assets/vendors/jqueryUITouch/jQueryUITouch.js"></script>
+
+
+    <script src="Assets/vendors/cldr/cldr.js"></script>
+    <script src="Assets/vendors/cldr/event.js"></script>
+    <script src="Assets/vendors/cldr/supplemental.js"></script>
+
+    <script src="Assets/vendors/globalize/globalize.js"></script>
+    <script src="Assets/vendors/globalize/message.js"></script>
+    <script src="Assets/vendors/globalize/number.js"></script>
+
+    <link href="Assets/vendors/fontAwesome/font-awesome.min.css" rel="stylesheet" />
+    <script src="Assets/vendors/FileSaver/FileSaver.min.js"></script>
+    <!-- Темы, применяющиеся только для элементов, дочерних классу dynamicPivotGrid  -->
+    <link href="Assets/vendors/bootstrap/bootstrap-metropolisThemeScoped.min.css" rel="stylesheet" />
+    <!--<link href="Assets/vendors/bootstrap/bootstrap-office2010blueThemeScoped.min.css" rel="stylesheet"/>-->
+    <!-- Темы, применяющиеся для все элементов без исключений -->
+    <!--<link href="Assets/vendors/bootstrap/bootstrap-metropolisTheme.min.css" rel="stylesheet" />-->
+    <!--<link href="Assets/vendors/bootstrap/bootstrap-office2010blueTheme.min.css" rel="stylesheet"/>-->
+
+    <script src="Assets/vendors/bootstrap/bootstrap.min.js"></script>
+
+    <script src="Assets/vendors/d3/d3.min.js"></script>
+    <script src="Assets/vendors/d3pie/d3pie.js"></script>
+
+    <script src="Assets/vendors/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+    <link href="Assets/vendors/bootstrap-colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" />
+
+    <script src="Assets/vendors/topojson/topojson-client.min.js"></script>
+    <script src="Assets/vendors/iso-3166-2/iso3166.min.js"></script>
+
+    <script src="Assets/vendors/angular/angular.min.js"></script>
+    <script src="Assets/vendors/angular/angular-translate.min.js"></script>
+    <script src="Assets/vendors/angular/angular-translate-loader-static-files.min.js"></script>
+    <script src="Assets/vendors/angular/angular-sanitize.min.js"></script>
+    <script src="Assets/vendors/angularUI/ui-bootstrap-tpls.min.js"></script>
+
+    <link href="Assets/vendors/handsontable/handsontable.full.min.css" rel="stylesheet" />
+    <script src="Assets/vendors/handsontable/handsontable.full.min.js"></script>
+
+
+    <!--<link href="https://docs.handsontable.com/0.16.1/bower_components/handsontable/dist/handsontable.full.min.css" rel="stylesheet" />
+    <script src="https://docs.handsontable.com/0.16.1/bower_components/handsontable/dist/handsontable.full.js"></script>-->
+    <!--Vendors-->
+    <!--Ranet-->
+    <link rel="stylesheet" href="./Assets/css/appScoped.min.css">
+    <link rel="stylesheet" href="./Assets/css/ranetControls.min.css">
+
+    <script src="./Assets/js/app.min.js"></script>
+    <script src="./Assets/js/ranetControls.min.js"></script>
+
+
+
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+    </style>
+
+<script>
+    /*
+    var api;
+
+    function isInit() {
+        var injector = window.angular.element(document.getElementById("ranetDynamicPivotGrid")).injector();
+        if (injector) {
+            var apiSpa = injector.get('ranetAngularInstance');
+            if (apiSpa) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    function getCurrentReportObj() {
+        var injector = window.angular.element(document.getElementById("ranetDynamicPivotGrid")).injector();
+        var apiSpa = injector.get('ranetAngularInstance');
+
+        return apiSpa.getCurrentReport();
+    }
+
+    function loadReportObj(report) {
+        var injector = window.angular.element(document.getElementById("ranetDynamicPivotGrid")).injector();
+        var apiSpa = injector.get('ranetAngularInstance');
+
+        apiSpa.loadReport(report);
+    }
+
+    function getAngularInstance() {
+        var injector = window.angular.element(document.getElementById("ranetDynamicPivotGrid")).injector();
+        var apiSpa = injector.get('ranetAngularInstance');
+
+        return apiSpa;
+    }
+
+    function createCustomActions() {
+        var api = getAngularInstance();
+
+        api.actionManager.addAction("showToolbars", function (params) {
+            this.showToolbars();
+        });
+
+        api.actionManager.addAction("hideBottomToolbar", function (params) {
+            this.setBottomToolbarVisibility(params.visible);
+        });
+
+        api.actionManager.addAction("setQueryDesignerVisibility",
+            function(params) {
+                this.showQueryDesignerToolbar(params.visible);
+            });
+
+        api.actionManager.addAction("showExtensionPanel",
+            function (params) {
+                this.showExtensionPanel(params.visible);
+            });
+    }
+
+    function hideBottomToolbar() {
+        var api = getAngularInstance();
+
+        api.actionManager.callAction("hideBottomToolbar", { visible: false });
+    }
+
+    function showBottomToolbar() {
+        var api = getAngularInstance();
+
+        api.actionManager.callAction("hideBottomToolbar", { visible: true });
+    }
+
+    // You can also set initial toolbar visibility via window object:
+    // window.showBottomToolbar = false; - for bottom toolbar
+    // window.showTopToolbar = false; - for top toolbar
+
+    function callCustomAction() {
+        var api = getAngularInstance();
+
+        api.actionManager.callAction("showToolbars", { text: "You can pass arguments via argument object" });
+    }
+
+    function removeCustomAction() {
+        var api = getAngularInstance();
+
+        api.actionManager.removeAction("showToolbars");
+    }
+
+    function reloadAppWithLoc(language) {
+        localStorage.setItem("ranet-sampleDynamicPivotGrid-preferLanguage", language);
+        window.location.reload();
+    }
+
+    function setQueryDesignerVisibility(value) {
+        var api = getAngularInstance();
+        api.actionManager.callAction("setQueryDesignerVisibility", { visible: value });
+    }
+
+    function showExtensionPanel(value) {
+        var api = getAngularInstance();
+        api.actionManager.callAction("showExtensionPanel", { visible: value });
+    }
+
+    parent.addEventListener("message", function (event) {
+        if(event.data == "Loaded") {
+            api = getAngularInstance();
+
+
+            api.actionManager.addAction("addItem",
+                function (options) {
+                    this.addItemToDesigner(options.area, options.description, options.type);
+                });
+
+            api.actionManager.addAction("deleteItem",
+                function (options) {
+                    this.deleteItemFromQueryDesigner(options.area, options.description, options.type);
+                });
+
+            createCustomActions();
+        }
+    });
+
+    parent.addEventListener("message", function (event) {
+        if(event.data === "Controls created") {
+            window.loadItem.dimension();
+        }
+    });
+
+    window.loadItem = {
+        dimension: function() {
+            var dimension = { uniqueName: "[Employee]" };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "rows",
+                    description: dimension,
+                    type: Ranet.Utility.DataType.Dimension
+                });
+        },
+        level: function() {
+            var level = { uniqueName: "[Scenario].[Scenario].[Scenario]" };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "columns",
+                    description: level,
+                    type: Ranet.Utility.DataType.Level
+                });
+        },
+        hierarchy: function() {
+            var hierarchy = { uniqueName: "[Employee].[Base Rate]" };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "rows",
+                    description: hierarchy,
+                    type: Ranet.Utility.DataType.Hierarchy
+                });
+        },
+        namedSet: function() {
+            var namedSet = {
+                name: "Summary P&L"
+            };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "rows",
+                    description: namedSet,
+                    type: Ranet.Utility.DataType.NamedSet
+                });
+        },
+        calculatedNamedSet: function() {
+            var calculatedNamedSet = {
+                name: "[Set 0]"
+            };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "columns",
+                    description: calculatedNamedSet,
+                    type: Ranet.Utility.DataType.CalculatedNamedSet
+                });
+        },
+        measure: function() {
+            var measure = {
+                uniqueName: "[Measures].[Amount]"
+            };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "data",
+                    description: measure,
+                    type: Ranet.Utility.DataType.Measure
+                });
+        },
+        kpiInfo: function() {
+            var kpi = {
+                name: "Return on Assets"
+            };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "data",
+                    description: kpi,
+                    type: Ranet.Utility.DataType.KpiInfo
+                });
+        },
+        kpiItem: function() {
+            var kpiItem = {
+                uniqueName: "[Measures].[Return on Assets Status]"
+            };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "data",
+                    description: kpiItem,
+                    type: Ranet.Utility.DataType.KpiItem
+                });
+        },
+        calculatedMember: function () {
+            var member = {
+                name: "[Calculated Member 0]"
+            };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "data",
+                    description: member,
+                    type: Ranet.Utility.DataType.CalculatedMember
+                });
+        },
+        itemWithFilter: function () {
+            var emptyCustomFilter = new Ranet.Controls.CustomFilterOptions();
+            var emptySmartCustomFilterDescription =
+                new Ranet.Controls.SmartFilter.Options.SmartCustomFilterDescription();
+            var emptyMembersFilter = {
+                isUsed: false
+            }
+            var membersFilter = {
+                isUsed: true,
+                selectionNodes: [
+                    {
+                        selectedSelf: true,
+                        uniqueName: "[Promotion].[Discount Percent].[All Promotions]",
+                        childNodes: []
+                    }
+                ]
+            }
+
+
+            var item = {
+                uniqueName: "[Promotion].[Discount Percent]",
+                filter: {
+                    isUsed: true,
+                    membersFilter: membersFilter,
+                    customFilter: emptyCustomFilter,
+                    smartCustomFilterDescription: emptySmartCustomFilterDescription
+                }
+            };
+
+            api.actionManager.callAction("addItem",
+                {
+                    area: "rows",
+                    description: item,
+                    type: Ranet.Utility.DataType.Hierarchy
+                });
+        }
+    }
+
+    window.deleteItem = {
+        level: function () {
+            var level = { uniqueName: "[Scenario].[Scenario].[Scenario]" };
+
+            api.actionManager.callAction("deleteItem",
+                {
+                    area: "columns",
+                    description: level,
+                    type: Ranet.Utility.DataType.Level
+                });
+        },
+    }
+    */
+</script>
+
+    <!--Ranet-->
+</head>
+
+<body>
+    <ranetdynamicpivotgridapp ng-app="sampleDynamicPivotGrid" id="ranetDynamicPivotGrid"></ranetdynamicpivotgridapp>
+</body>
+</html>
