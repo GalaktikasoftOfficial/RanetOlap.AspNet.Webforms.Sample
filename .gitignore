@@ -3,3 +3,5 @@
 ################################################################################
 
 /Ranet.ASP.NET.WebApp/bin
+/Ranet.ASP.NET.WebApp/obj/Debug
+/packages
