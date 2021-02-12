@@ -5,3 +5,6 @@
 /Ranet.ASP.NET.WebApp/bin
 /Ranet.ASP.NET.WebApp/obj/Debug
 /packages
+/Ranet.ASP.NET.WebApp/obj/Release
+/Ranet.ASP.NET.WebApp/logRanetOlap.xml
+/.vs/
