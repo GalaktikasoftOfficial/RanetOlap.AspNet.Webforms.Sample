@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/packages
+
+/Ranet.ASP.NET.WebApp/Assets
+
+/Ranet.ASP.NET.WebApp/bin
+/Ranet.ASP.NET.WebApp/obj/Debug
+/Ranet.ASP.NET.WebApp/obj/Release
+
+/Ranet.ASP.NET.WebApp/logRanetOlap.xml
+
+
+
