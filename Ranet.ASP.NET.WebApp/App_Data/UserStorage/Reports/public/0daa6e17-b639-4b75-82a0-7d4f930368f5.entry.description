@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<DescriptionStorageEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Id>0daa6e17-b639-4b75-82a0-7d4f930368f5</Id>
-  <Caption>test01</Caption>
-  <IsPublic>true</IsPublic>
-  <Version>1.0</Version>
-  <Index />
-</DescriptionStorageEntry>
